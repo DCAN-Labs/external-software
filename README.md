@@ -1,6 +1,9 @@
 # External Software for the DCAN Labs pipelines.
-The repository contains the Dockerfile to create a Docker image
-of external software used by a dcan-pipeline.
+The repository contains the Dockerfile to create a Docker image of external
+software packages used by DCAN pipelines. Notice that there is no entry point
+for this container. It is meant to be used to build the next level of the DCAN
+pipelines: internal-tools.
+
 
 ## Installation
 In order to run this software via a container, you will need to acquire a copy
@@ -29,8 +32,5 @@ singularity build abcd-hcp-pipeline.img docker://dcanlabs/abcd-hcp-pipeline
 ```
 These are essentially the same, but in the latter case you have control over the
 name of the file.
-
-Notice that there is no entry point for this container. It is meant to be used to
-build the next level of the DCAN pipelines: internal-tools.
 
 
