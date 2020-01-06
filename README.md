@@ -26,9 +26,9 @@ registry, and possibly increase the amount of space allocated to Docker.
 You can either pull the image from the Docker repository or build it from the
 repository for the image to be saved in the working directory:
 ```
-singularity pull docker://dcanlabs/abcd-hcp-pipeline
+singularity pull docker://dcanlabs/external-software
 
-singularity build abcd-hcp-pipeline.img docker://dcanlabs/abcd-hcp-pipeline
+singularity build external-software.img docker://dcanlabs/external-software
 ```
 These are essentially the same, but in the latter case you have control over the
 name of the file.
