@@ -6,7 +6,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 # Install common dependencies
 #----------------------------------------------------------
 ENV LANG="en_US.UTF-8" \
-    LC_ALL="C.UTF-8"
+    LC_ALL="C.UTF-8" \
+    ND_ENTRYPOINT="/neurodocker/startup.sh"
 RUN apt-get update && apt-get install -yq --no-install-recommends \
         apt-utils \
         bzip2 \
@@ -32,15 +33,22 @@ RUN apt-key adv --recv-keys --keyserver hkp://ha.pool.sks-keyservers.net 0xA5D32
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && localedef --force --inputfile=en_US --charmap=UTF-8 C.UTF-8 \
-    && chmod 777 /opt && chmod a+s /opt
+    && chmod 777 /opt && chmod a+s /opt \
+    && mkdir -p /neurodocker \
+    && if [ ! -f "$ND_ENTRYPOINT" ]; then \
+        echo '#!/usr/bin/env bash' >> $ND_ENTRYPOINT \
+        && echo 'set +x' >> $ND_ENTRYPOINT \
+        && echo 'if [ -z "$*" ]; then /usr/bin/env bash; else $*; fi' >> $ND_ENTRYPOINT; \
+    fi \
+    && chmod -R 777 /neurodocker && chmod a+s /neurodocker
 
 
-# install wb_command v1.3.2
+# install wb_command v1.4.1
 RUN mkdir -p /opt
 WORKDIR /opt
-RUN curl --retry 5 https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.3.2.zip --output workbench-linux64-v1.3.2.zip && \
-  unzip workbench-linux64-v1.3.2.zip && \
-  rm workbench-linux64-v1.3.2.zip
+RUN curl --retry 5 https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.4.1.zip --output workbench-linux64-v1.4.1.zip && \
+  unzip workbench-linux64-v1.4.1.zip && \
+  rm workbench-linux64-v1.4.1.zip
 
 
 #-------------------
