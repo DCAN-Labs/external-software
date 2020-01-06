@@ -26,8 +26,9 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
         gnupg2
 
 RUN wget -O- http://neuro.debian.net/lists/bionic.us-ca.full | tee /etc/apt/sources.list.d/neurodebian.sources.list
-RUN apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
-#RUN apt-get update -qq && apt-get install -yq --no-install-recommends connectome-workbench \
+
+# Looks like the same command on both sides of the '||'. Am guessing that sometimes you have to do this a couple of times before it works?
+RUN apt-key adv --recv-keys --keyserver hkp://ha.pool.sks-keyservers.net 0xA5D32F012649A5A9 || apt-key adv --recv-keys --keyserver hkp://pool.sks-keyservers.net:80 0xA5D32F012649A5A9
 RUN apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     && localedef --force --inputfile=en_US --charmap=UTF-8 C.UTF-8 \
@@ -37,7 +38,7 @@ RUN apt-get clean \
 # install wb_command v1.3.2
 RUN mkdir -p /opt
 WORKDIR /opt
-RUN curl --retry 5 https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.3.2.zip --output workbench-linux64-v1.3.2.zip && \
+RUN curl --retry 5 https://ftp.humanconnectome.org/workbench/workbench-linux64-v1.3.2.zip --output workbench-linux64-v1.3.2.zip && \
   unzip workbench-linux64-v1.3.2.zip && \
   rm workbench-linux64-v1.3.2.zip
 
