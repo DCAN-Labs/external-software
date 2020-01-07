@@ -9,7 +9,8 @@ pipelines: internal-tools.
 In order to run this software via a container, you will need to acquire a copy
 of the FreeSurfer License for yourself from:
 
-'https://surfer.nmr.mgh.harvard.edu/fswiki/License'
+[Follow this link for a FreeSurfer
+License](https://surfer.nmr.mgh.harvard.edu/fswiki/License)
 
 
 ## Using Docker
