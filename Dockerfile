@@ -10,21 +10,22 @@ ENV LANG="en_US.UTF-8" \
     ND_ENTRYPOINT="/neurodocker/startup.sh"
 RUN apt-get update && apt-get install -yq --no-install-recommends \
         apt-utils \
+        build-essential \
         bzip2 \
         ca-certificates \
         curl \
         dirmngr\
+        git \
+        gnupg2 \
+        libglib2.0-0 \
         libssl1.0.0\
         libssl-dev\
         locales \
+        m4 \
+        make \
         rsync \
         unzip \
-        wget \
-        make \
-        m4 \
-        build-essential \
-        libglib2.0-0 \
-        gnupg2
+        wget
 
 RUN wget -O- http://neuro.debian.net/lists/bionic.us-ca.full | tee /etc/apt/sources.list.d/neurodebian.sources.list
 
