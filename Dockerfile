@@ -126,11 +126,10 @@ ENV FSLDIR=/opt/fsl \
 #---------------------
 RUN mkdir /opt/mcr /opt/mcr_download
 WORKDIR /opt/mcr_download
-RUN wget http://ssd.mathworks.com/supportfiles/downloads/R2016b/deployment_files/R2016b/installers/glnxa64/MCR_R2016b_glnxa64_installer.zip \
-    && unzip MCR_R2016b_glnxa64_installer.zip \
+RUN wget https://ssd.mathworks.com/supportfiles/downloads/R2017a/deployment_files/R2017a/installers/glnxa64/MCR_R2017a_glnxa64_installer.zip \
+    && unzip MCR_R2017a_glnxa64_installer.zip \
     && ./install -agreeToLicense yes -mode silent -destinationFolder /opt/mcr \
     && rm -rf /opt/mcr_download
-#ENV LD_LIBRARY_PATH=/opt/mcr/v91/bin/glnxa64:/opt/mcr/v91/glnxa64:/opt/mcr/v91/runtime/glnxa64:$LD_LIBRARY_PATH
 
 #---------------------
 # Install MSM Binaries
@@ -184,6 +183,17 @@ RUN ln -s -f /lib/x86_64-linux-gnu/libz.so.1.2.11 /opt/workbench/libs_linux64/li
 # Fix libstdc++6 error
 RUN ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.24 /opt/mcr/v91/sys/os/glnxa64/libstdc++.so.6
 
+# Fix MCR lib errors
+WORKDIR /opt/mcr/v92/bin/glnxa64
+RUN ln -s libicudata.so.56.1 libicudata.so.56
+RUN ln -s libicuuc.so.56.1 libicuuc.so.56
+RUN ln -s libicui18n.so.56.1 libicui18n.so.56
+RUN ln -s libicuio.so.56.1 libicuio.so.56
+RUN ln -s libhdf5_hl.so.8.0.1 libhdf5_hl.so.8
+RUN ln -s libhdf5.so.8.0.1 libhdf5.so.8
+RUN ln -s libCGAL.so.11.0.2 libCGAL.so.11
+RUN ln -s libgmp.so.3.4.1 libgmp.so.3
+RUN ln -s libmpfr.so.1.2.2 libmpfr.so.1
+
 # setup ENTRYPOINT
 CMD ["--help"]
-
