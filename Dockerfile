@@ -44,12 +44,12 @@ RUN apt-get clean \
     && chmod -R 777 /neurodocker && chmod a+s /neurodocker
 
 
-# install wb_command v1.4.1
+# install connectome workbench
 RUN mkdir -p /opt
 WORKDIR /opt
-RUN curl --retry 5 https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.4.1.zip --output workbench-linux64-v1.4.1.zip && \
-  unzip workbench-linux64-v1.4.1.zip && \
-  rm workbench-linux64-v1.4.1.zip
+RUN curl --retry 5 https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.4.2.zip --output workbench-linux64-v1.4.2.zip && \
+  unzip workbench-linux64-v1.4.2.zip && \
+  rm workbench-linux64-v1.4.2.zip
 
 
 #-------------------
