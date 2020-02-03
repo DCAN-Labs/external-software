@@ -182,17 +182,17 @@ RUN ln -s -f /lib/x86_64-linux-gnu/libz.so.1.2.11 /opt/workbench/libs_linux64/li
 # Fix libstdc++6 error
 RUN ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.24 /opt/mcr/v92/sys/os/glnxa64/libstdc++.so.6
 
-# Fix MCR lib errors
-WORKDIR /opt/mcr/v92/bin/glnxa64
-RUN ln -s libicudata.so.56.1  libicudata.so.56
-RUN ln -s libicuuc.so.56.1    libicuuc.so.56
-RUN ln -s libicui18n.so.56.1  libicui18n.so.56
-RUN ln -s libicuio.so.56.1    libicuio.so.56
-RUN ln -s libhdf5_hl.so.8.0.1 libhdf5_hl.so.8
-RUN ln -s libhdf5.so.8.0.1    libhdf5.so.8
-RUN ln -s libCGAL.so.11.0.2   libCGAL.so.11
-RUN ln -s libgmp.so.3.4.1     libgmp.so.3
-RUN ln -s libmpfr.so.1.2.2    libmpfr.so.1
+# # Fix MCR lib errors
+# WORKDIR /opt/mcr/v92/bin/glnxa64
+# RUN ln -s libicudata.so.56.1  libicudata.so.56
+# RUN ln -s libicuuc.so.56.1    libicuuc.so.56
+# RUN ln -s libicui18n.so.56.1  libicui18n.so.56
+# RUN ln -s libicuio.so.56.1    libicuio.so.56
+# RUN ln -s libhdf5_hl.so.8.0.1 libhdf5_hl.so.8
+# RUN ln -s libhdf5.so.8.0.1    libhdf5.so.8
+# RUN ln -s libCGAL.so.11.0.2   libCGAL.so.11
+# RUN ln -s libgmp.so.3.4.1     libgmp.so.3
+# RUN ln -s libmpfr.so.1.2.2    libmpfr.so.1
 
 # setup ENTRYPOINT
 CMD ["--help"]
