@@ -98,6 +98,10 @@ RUN echo "Downloading FreeSurfer ..." \
 
 ENV FREESURFER_HOME=/opt/freesurfer
 
+# FreeSurfer uses matlab and tries to write the startup.m to the HOME dir.
+# Therefore, HOME needs to be a writable dir.
+ENV HOME=/opt
+
 #-----------------------------------------------------------
 # Install FSL v5.0.10
 # FSL is non-free. If you are considering commerical use
