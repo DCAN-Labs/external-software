@@ -44,12 +44,12 @@ RUN apt-get clean \
     && chmod -R 777 /neurodocker && chmod a+s /neurodocker
 
 
-# install wb_command v1.4.1
+# install connectome workbench
 RUN mkdir -p /opt
 WORKDIR /opt
-RUN curl --retry 5 https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.4.1.zip --output workbench-linux64-v1.4.1.zip && \
-  unzip workbench-linux64-v1.4.1.zip && \
-  rm workbench-linux64-v1.4.1.zip
+RUN curl --retry 5 https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.4.2.zip --output workbench-linux64-v1.4.2.zip && \
+  unzip workbench-linux64-v1.4.2.zip && \
+  rm workbench-linux64-v1.4.2.zip
 
 
 #-------------------
@@ -98,6 +98,10 @@ RUN echo "Downloading FreeSurfer ..." \
 
 ENV FREESURFER_HOME=/opt/freesurfer
 
+# FreeSurfer uses matlab and tries to write the startup.m to the HOME dir.
+# Therefore, HOME needs to be a writable dir.
+ENV HOME=/opt
+
 #-----------------------------------------------------------
 # Install FSL v5.0.10
 # FSL is non-free. If you are considering commerical use
@@ -126,11 +130,10 @@ ENV FSLDIR=/opt/fsl \
 #---------------------
 RUN mkdir /opt/mcr /opt/mcr_download
 WORKDIR /opt/mcr_download
-RUN wget http://ssd.mathworks.com/supportfiles/downloads/R2016b/deployment_files/R2016b/installers/glnxa64/MCR_R2016b_glnxa64_installer.zip \
-    && unzip MCR_R2016b_glnxa64_installer.zip \
+RUN wget https://ssd.mathworks.com/supportfiles/downloads/R2017a/deployment_files/R2017a/installers/glnxa64/MCR_R2017a_glnxa64_installer.zip \
+    && unzip MCR_R2017a_glnxa64_installer.zip \
     && ./install -agreeToLicense yes -mode silent -destinationFolder /opt/mcr \
     && rm -rf /opt/mcr_download
-#ENV LD_LIBRARY_PATH=/opt/mcr/v91/bin/glnxa64:/opt/mcr/v91/glnxa64:/opt/mcr/v91/runtime/glnxa64:$LD_LIBRARY_PATH
 
 #---------------------
 # Install MSM Binaries
@@ -155,14 +158,13 @@ RUN rm -rf /opt/perl-5.20.3/
 #------------------
 # Make libnetcdf
 #------------------
-
-RUN curl -sSL --retry 5 ftp://ftp.unidata.ucar.edu/pub/netcdf/netcdf-4.6.1.tar.gz | tar zx -C /opt
-WORKDIR /opt/netcdf-4.6.1/
+RUN curl -sSL --retry 5 https://github.com/Unidata/netcdf-c/archive/v4.6.1.tar.gz | tar zx -C /opt
+WORKDIR /opt/netcdf-c-4.6.1/
 RUN LDFLAGS=-L/usr/local/lib && CPPFLAGS=-I/usr/local/include && ./configure --disable-netcdf-4 --disable-dap --enable-shared --prefix=/usr/local
 RUN make && make install
 WORKDIR /usr/local/lib
 RUN ln -s libnetcdf.so.13.1.1 libnetcdf.so.6
-RUN rm -rf /opt/netcdf-4.6.1/
+RUN rm -rf /opt/netcdf-c-4.6.1/
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
 
 #------------------------------------------
@@ -182,8 +184,19 @@ ENV WORKBENCHDIR=/opt/workbench \
 RUN ln -s -f /lib/x86_64-linux-gnu/libz.so.1.2.11 /opt/workbench/libs_linux64/libz.so.1
 
 # Fix libstdc++6 error
-RUN ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.24 /opt/mcr/v91/sys/os/glnxa64/libstdc++.so.6
+RUN ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.24 /opt/mcr/v92/sys/os/glnxa64/libstdc++.so.6
+
+# # Fix MCR lib errors
+# WORKDIR /opt/mcr/v92/bin/glnxa64
+# RUN ln -s libicudata.so.56.1  libicudata.so.56
+# RUN ln -s libicuuc.so.56.1    libicuuc.so.56
+# RUN ln -s libicui18n.so.56.1  libicui18n.so.56
+# RUN ln -s libicuio.so.56.1    libicuio.so.56
+# RUN ln -s libhdf5_hl.so.8.0.1 libhdf5_hl.so.8
+# RUN ln -s libhdf5.so.8.0.1    libhdf5.so.8
+# RUN ln -s libCGAL.so.11.0.2   libCGAL.so.11
+# RUN ln -s libgmp.so.3.4.1     libgmp.so.3
+# RUN ln -s libmpfr.so.1.2.2    libmpfr.so.1
 
 # setup ENTRYPOINT
 CMD ["--help"]
-
