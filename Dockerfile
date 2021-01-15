@@ -184,7 +184,7 @@ ENV WORKBENCHDIR=/opt/workbench \
 RUN ln -s -f /lib/x86_64-linux-gnu/libz.so.1.2.11 /opt/workbench/libs_linux64/libz.so.1
 
 # Fix libstdc++6 error
-RUN ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.24 /opt/mcr/v92/sys/os/glnxa64/libstdc++.so.6
+RUN ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25 /opt/mcr/v92/sys/os/glnxa64/libstdc++.so.6
 
 # # Fix MCR lib errors
 # WORKDIR /opt/mcr/v92/bin/glnxa64
