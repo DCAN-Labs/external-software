@@ -43,6 +43,8 @@ RUN apt-get clean \
     fi \
     && chmod -R 777 /neurodocker && chmod a+s /neurodocker
 
+# make this run with Singularity, too.
+RUN ldconfig
 
 # install connectome workbench
 RUN mkdir -p /opt
