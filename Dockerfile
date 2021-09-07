@@ -201,4 +201,4 @@ RUN ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25 /opt/mcr/v92/sys/os/gln
 RUN ldconfig
 
 # setup ENTRYPOINT
-CMD ["--help"]
+CMD ["/bin/bash"]
