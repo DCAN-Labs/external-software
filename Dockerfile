@@ -43,9 +43,6 @@ RUN apt-get clean \
     fi \
     && chmod -R 777 /neurodocker && chmod a+s /neurodocker
 
-# make this run with Singularity, too.
-RUN ldconfig
-
 # install connectome workbench
 RUN mkdir -p /opt
 WORKDIR /opt
@@ -200,5 +197,8 @@ RUN ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25 /opt/mcr/v92/sys/os/gln
 # RUN ln -s libgmp.so.3.4.1     libgmp.so.3
 # RUN ln -s libmpfr.so.1.2.2    libmpfr.so.1
 
+# make this run with Singularity, too.
+RUN ldconfig
+
 # setup ENTRYPOINT
-CMD ["--help"]
+CMD ["/bin/bash"]
