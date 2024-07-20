@@ -18,8 +18,9 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
         git \
         gnupg2 \
         libglib2.0-0 \
-        libssl1.0.0\
-        libssl-dev\
+        libssl1.0.0 \
+        libssl-dev \
+        libxcomposite1 \
         locales \
         m4 \
         make \
