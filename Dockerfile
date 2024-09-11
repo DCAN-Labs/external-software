@@ -18,8 +18,9 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
         git \
         gnupg2 \
         libglib2.0-0 \
-        libssl1.0.0\
-        libssl-dev\
+        libssl1.0.0 \
+        libssl-dev \
+        libxcomposite1 \
         locales \
         m4 \
         make \
@@ -55,7 +56,7 @@ RUN curl --retry 5 https://www.humanconnectome.org/storage/app/media/workbench/w
 # Install ANTs 2.2.0
 #-------------------
 RUN echo "Downloading ANTs ..." \
-    && curl -sSL --retry 5 https://dl.dropbox.com/s/2f4sui1z6lcgyek/ANTs-Linux-centos5_x86_64-v2.2.0-0740f91.tar.gz \
+    && curl -sSL --retry 5 https://s3.msi.umn.edu/neurodocker-ants-mirror/ANTs-Linux-centos5_x86_64-v2.2.0-0740f91.tar.gz \
     | tar zx -C /opt
 ENV ANTSPATH=/opt/ants \
     PATH=/opt/ants:$PATH
