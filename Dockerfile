@@ -130,8 +130,8 @@ ENV FSLDIR=/opt/fsl \
 #---------------------
 RUN mkdir /opt/mcr /opt/mcr_download
 WORKDIR /opt/mcr_download
-RUN wget https://ssd.mathworks.com/supportfiles/downloads/R2016b/deployment_files/R2016b/installers/glnxa64/MCR_R2016b_glnxa64_installer.zip \
-    && unzip MCR_R2016b_glnxa64_installer.zip \
+RUN wget https://ssd.mathworks.com/supportfiles/downloads/R2019a/Release/9/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2019a_Update_9_glnxa64.zip \
+    && unzip MATLAB_Runtime_R2019a_Update_9_glnxa64.zip \
     && ./install -agreeToLicense yes -mode silent -destinationFolder /opt/mcr \
     && rm -rf /opt/mcr_download
 
