@@ -130,8 +130,8 @@ ENV FSLDIR=/opt/fsl \
 #---------------------
 RUN mkdir /opt/mcr /opt/mcr_download
 WORKDIR /opt/mcr_download
-RUN wget https://ssd.mathworks.com/supportfiles/downloads/R2019a/Release/9/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2019a_Update_9_glnxa64.zip \
-    && unzip MATLAB_Runtime_R2019a_Update_9_glnxa64.zip \
+RUN wget https://ssd.mathworks.com/supportfiles/downloads/R2023b/Release/9/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2023b_Update_9_glnxa64.zip \
+    && unzip MATLAB_Runtime_R2023b_Update_9_glnxa64.zip \
     && ./install -agreeToLicense yes -mode silent -destinationFolder /opt/mcr \
     && rm -rf /opt/mcr_download
 
@@ -184,7 +184,7 @@ ENV WORKBENCHDIR=/opt/workbench \
 RUN ln -s -f /lib/x86_64-linux-gnu/libz.so.1.2.11 /opt/workbench/libs_linux64/libz.so.1
 
 # Fix libstdc++6 error
-RUN ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25 /opt/mcr/v96/sys/os/glnxa64/libstdc++.so.6
+RUN ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25 /opt/mcr/R2023b/sys/os/glnxa64/libstdc++.so.6
 
 # # Fix MCR lib errors
 # WORKDIR /opt/mcr/v92/bin/glnxa64
