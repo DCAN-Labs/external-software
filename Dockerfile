@@ -128,12 +128,16 @@ ENV FSLDIR=/opt/fsl \
 #---------------------
 # Install MATLAB Compiler Runtime
 #---------------------
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test
+RUN apt upgrade libstdc++6
 RUN mkdir /opt/mcr /opt/mcr_download
+RUN chmod -R 777 /opt/mcr
 WORKDIR /opt/mcr_download
 RUN wget https://ssd.mathworks.com/supportfiles/downloads/R2023b/Release/9/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2023b_Update_9_glnxa64.zip \
     && unzip MATLAB_Runtime_R2023b_Update_9_glnxa64.zip \
     && ./install -agreeToLicense yes -mode silent -destinationFolder /opt/mcr \
     && rm -rf /opt/mcr_download
+
 
 #---------------------
 # Install MSM Binaries
