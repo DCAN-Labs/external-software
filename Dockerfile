@@ -128,10 +128,7 @@ ENV FSLDIR=/opt/fsl \
 #---------------------
 # Install MATLAB Compiler Runtime
 #---------------------
-RUN add-apt-repository ppa:ubuntu-toolchain-r/test
-RUN apt upgrade libstdc++6
 RUN mkdir /opt/mcr /opt/mcr_download
-RUN chmod -R 777 /opt/mcr
 WORKDIR /opt/mcr_download
 RUN wget https://ssd.mathworks.com/supportfiles/downloads/R2023b/Release/9/deployment_files/installer/complete/glnxa64/MATLAB_Runtime_R2023b_Update_9_glnxa64.zip \
     && unzip MATLAB_Runtime_R2023b_Update_9_glnxa64.zip \
@@ -187,7 +184,7 @@ ENV WORKBENCHDIR=/opt/workbench \
 # Fix libz error
 RUN ln -s -f /lib/x86_64-linux-gnu/libz.so.1.2.11 /opt/workbench/libs_linux64/libz.so.1
 
-# Fix libstdc++6 error
+# Fix libstdc++6 error (TM 09262024: seems to be unneeded with R2023b)
 # RUN ln -sf /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.25 /opt/mcr/R2023b/sys/os/glnxa64/libstdc++.so.6
 
 # # Fix MCR lib errors
